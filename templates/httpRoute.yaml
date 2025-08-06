@@ -1,0 +1,18 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: httproute-linkding
+spec:
+  parentRefs:
+  - name: gateway-dev-linkding
+  hostnames:
+    - "linkding.studyk8s.com"
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: service-linkding
+      port: 9090
+  
