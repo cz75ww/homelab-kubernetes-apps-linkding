@@ -1,7 +1,6 @@
 # Variables for dev linkding self-host container application
 # Helm tutorial
 
-
 # Deployment
 env: dev
 appName: linkding
@@ -11,11 +10,11 @@ imageRelease: sissbruecker/linkding:1.39.1
 replicasCount: 2
 persistentVolumeClaim: pvc
 persistentVolume: pv
-mountPoint: /etc/linkding/data/ 
+mountPoint: /etc/linkding/data/
 
 # Persistent volumes & Pesistent volume Claims
 scName: rook-ceph-block
 accessModesType: ReadWriteMany
 storageSize: 1Gi
-storageArea: /home/ubuntu/volumes/linkding
+storageArea: /opt/kubernetes/volumes
 requestStorageSize: 500Mi
