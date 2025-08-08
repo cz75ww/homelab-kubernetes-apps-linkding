@@ -3,14 +3,14 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: {{ .Values.appName }}
+    app: "{{ .Values.appName }}"
   name: "service-{{ .Values.appName }}"
 spec:
   ports:
-  - port: {{ .Values.containerPortNumber }}
-    protocol: TCP
-    targetPort: {{ .Values.containerPortNumber }}
+    - port: { { .Values.containerPortNumber } }
+      protocol: TCP
+      targetPort: { { .Values.containerPortNumber } }
   selector:
-    app: {{ .Values.appName }}
+    app: "{{ .Values.appName }}"
 status:
   loadBalancer: {}

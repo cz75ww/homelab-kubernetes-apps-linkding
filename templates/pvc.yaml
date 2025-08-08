@@ -3,9 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: "{{ .Values.persistentVolumeClaim }}-{{ .Values.appName }}"
 spec:
-  storageClassName: { { .Values.scName } }
+  storageClassName: "{{ .Values.scName }}"
   accessModes:
-    - { { .Values.accessModesType } }
+    - "{{ .Values.accessModesType }}"
   resources:
     requests:
-      storage: { { .Values.requestStorageSize } }
+      storage: "{{ .Values.requestStorageSize }}"

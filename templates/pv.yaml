@@ -3,13 +3,13 @@ kind: PersistentVolume
 metadata:
   name: "{{ .Values.persistentVolume }}-{{ .Values.appName }}"
 spec:
-  storageClassName: { { .Values.scName } }
+  storageClassName: "{{ .Values.scName }}"
   accessModes:
-    - { { .Values.accessModesType } }
+    - "{{ .Values.accessModesType }}"
   capacity:
-    storage: { { .Values.storageSize } }
+    storage: "{{ .Values.storageSize }}"
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    path: { { .Values.nfsDir } }
-    server: { { .Values.nfsServer } }
+    path: "{{ .Values.nfsDir }}"
+    server: "{{ .Values.nfsServer }}"
     readOnly: false
