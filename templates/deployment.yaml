@@ -6,7 +6,7 @@ metadata:
     app: "{{ .Values.appName }}"
   name: "{{ .Values.env }}-{{ .Values.appName }}"
 spec:
-  replicas: { { .Values.replicasCount } }
+  replicas: {{ .Values.replicasCount }}
   selector:
     matchLabels:
       app: "{{ .Values.appName }}"
@@ -36,7 +36,7 @@ spec:
           name: "{{ .Values.appName }}-container"
           resources: {}
           ports:
-            - containerPort: { { .Values.containerPortNumber } }
+            - containerPort: {{ .Values.containerPortNumber }}
           volumeMounts:
             - mountPath: "{{ .Values.mountPoint }}"
               name: "{{ .Values.appName }}-{{ .Values.volumeName }}"

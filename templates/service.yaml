@@ -7,9 +7,9 @@ metadata:
   name: "service-{{ .Values.appName }}"
 spec:
   ports:
-    - port: { { .Values.containerPortNumber } }
+    - port: {{ .Values.containerPortNumber }}
       protocol: TCP
-      targetPort: { { .Values.containerPortNumber } }
+      targetPort: {{ .Values.containerPortNumber }}
   selector:
     app: "{{ .Values.appName }}"
 status:
