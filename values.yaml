@@ -13,8 +13,10 @@ persistentVolume: pv
 mountPoint: /etc/linkding/data/
 
 # Persistent volumes & Pesistent volume Claims
-scName: rook-ceph-block
+scName: nfs-csi
 accessModesType: ReadWriteMany
 storageSize: 1Gi
 storageArea: /opt/kubernetes/volumes
 requestStorageSize: 500Mi
+nfsDir: /data/nfs/kubernetes/volumes
+nfsServer: 192.168.122.130
