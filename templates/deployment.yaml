@@ -31,6 +31,19 @@ spec:
         - name: "{{ .Values.appName }}-{{ .Values.volumeName }}"
           persistentVolumeClaim:
             claimName: "{{ .Values.persistentVolumeClaim }}-{{ .Values.appName }}"
+      initContainers:
+        - name: wait-for-nfs
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for NFS server..."
+              until ping -c 1 {{ .Values.nfsServer }} >/dev/null 2>&1; do
+                echo "NFS not reachable, retrying..."
+                sleep 2
+              done
+              echo "NFS server is reachable."
       containers:
         - image: "{{ .Values.imageRelease }}"
           name: "{{ .Values.appName }}-container"
@@ -40,3 +53,13 @@ spec:
           volumeMounts:
             - mountPath: "{{ .Values.mountPoint }}"
               name: "{{ .Values.appName }}-{{ .Values.volumeName }}"
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - |
+                  mountpoint -q "{{ .Values.mountPoint }}"
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
