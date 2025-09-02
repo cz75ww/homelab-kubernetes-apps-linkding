@@ -23,4 +23,3 @@ nfsServer: 192.168.122.130
 
 # TLS Configuration
 tlsDir: /home/ubuntu/homelab/tls
-dnsName: studyk8s.com
