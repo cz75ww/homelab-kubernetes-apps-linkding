@@ -20,6 +20,3 @@ storageArea: /opt/kubernetes/volumes
 requestStorageSize: 500Mi
 nfsDir: /data/nfs/kubernetes/volumes
 nfsServer: 192.168.122.130
-
-# TLS Configuration
-tlsDir: /home/ubuntu/homelab/tls
