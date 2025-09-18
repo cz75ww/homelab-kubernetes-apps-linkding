@@ -1,9 +1,12 @@
 # Variables for dev linkding self-host container application
 # Helm tutorial
 
-# Deployment
-env: dev
+# Global
 appName: linkding
+env: dev
+nsName: linkding-ns
+
+# Deployment
 volumeName: volume
 containerPortNumber: 9090
 imageRelease: sissbruecker/linkding:1.39.1
@@ -20,3 +23,8 @@ storageArea: /opt/kubernetes/volumes
 requestStorageSize: 500Mi
 nfsDir: /data/nfs/kubernetes/volumes
 nfsServer: 192.168.122.130
+
+namespace:
+  name: linkding-ns
+  environment: dev
+  team: devops

@@ -5,6 +5,7 @@ metadata:
   labels:
     app: "{{ .Values.appName }}"
   name: "service-{{ .Values.appName }}"
+  namespace: "{{ .Values.nsName }}"
 spec:
   ports:
     - port: {{ .Values.containerPortNumber }}

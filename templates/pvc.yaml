@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: "{{ .Values.persistentVolumeClaim }}-{{ .Values.appName }}"
+  namespace: "{{ .Values.nsName }}"
 spec:
   storageClassName: "{{ .Values.scName }}"
   accessModes:
