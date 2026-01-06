@@ -28,3 +28,9 @@ namespace:
   name: linkding-ns
   environment: dev
   team: devops
+
+# values.yaml
+securityContext:
+  runAsUser: 82
+  runAsGroup: 82
+  fsGroup: 82

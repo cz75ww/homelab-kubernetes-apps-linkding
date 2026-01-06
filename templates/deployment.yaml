@@ -19,6 +19,13 @@ spec:
         app: "{{ .Values.appName }}"
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 82          # www-data UID
+        runAsGroup: 82         # www-data GID
+        fsGroup: 82            # Ensures volume permissions
+        seccompProfile:
+          type: RuntimeDefault
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -33,6 +40,12 @@ spec:
         - name: "{{ .Values.appName }}-{{ .Values.volumeName }}"
           persistentVolumeClaim:
             claimName: "{{ .Values.persistentVolumeClaim }}-{{ .Values.appName }}"
+        - name: tmp
+          emptyDir: {}
+        - name: cache
+          emptyDir: {}
+        - name: run
+          emptyDir: {}
       initContainers:
         - name: wait-for-nfs
           image: busybox
@@ -55,6 +68,12 @@ spec:
           volumeMounts:
             - mountPath: "{{ .Values.mountPoint }}"
               name: "{{ .Values.appName }}-{{ .Values.volumeName }}"
+            - mountPath: /tmp
+              name: tmp
+            - mountPath: /var/cache
+              name: cache
+            - mountPath: /var/run
+              name: run
           readinessProbe:
             exec:
               command:
@@ -66,12 +85,9 @@ spec:
             periodSeconds: 5
             failureThreshold: 3
           securityContext:
-            runAsNonRoot: true
-            runAsUser: www-data          # www-data user from the image
-            runAsGroup: www-data         # www-data group from the image
-            fsGroup: www-data            # Ensures volume permissions
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false  # Linkding needs to write to some directories
+            readOnlyRootFilesystem: true  # NOW SECURE! Root filesystem is read-only
+            runAsNonRoot: true
             capabilities:
               drop:
               - ALL
