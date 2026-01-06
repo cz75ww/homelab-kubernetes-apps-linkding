@@ -65,3 +65,13 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
             failureThreshold: 3
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: www-data          # www-data user from the image
+            runAsGroup: www-data         # www-data group from the image
+            fsGroup: www-data            # Ensures volume permissions
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false  # Linkding needs to write to some directories
+            capabilities:
+              drop:
+              - ALL
