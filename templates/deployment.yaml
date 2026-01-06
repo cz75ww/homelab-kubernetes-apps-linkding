@@ -18,6 +18,7 @@ spec:
       labels:
         app: "{{ .Values.appName }}"
     spec:
+      automountServiceAccountToken: false
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
