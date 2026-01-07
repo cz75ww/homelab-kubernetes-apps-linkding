@@ -19,13 +19,6 @@ spec:
         app: "{{ .Values.appName }}"
     spec:
       automountServiceAccountToken: false
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 82          # www-data UID
-        runAsGroup: 82         # www-data GID
-        fsGroup: 82            # Ensures volume permissions
-        seccompProfile:
-          type: RuntimeDefault
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -40,12 +33,6 @@ spec:
         - name: "{{ .Values.appName }}-{{ .Values.volumeName }}"
           persistentVolumeClaim:
             claimName: "{{ .Values.persistentVolumeClaim }}-{{ .Values.appName }}"
-        - name: tmp
-          emptyDir: {}
-        - name: cache
-          emptyDir: {}
-        - name: run
-          emptyDir: {}
       initContainers:
         - name: wait-for-nfs
           image: busybox
@@ -68,12 +55,6 @@ spec:
           volumeMounts:
             - mountPath: "{{ .Values.mountPoint }}"
               name: "{{ .Values.appName }}-{{ .Values.volumeName }}"
-            - mountPath: /tmp
-              name: tmp
-            - mountPath: /var/cache
-              name: cache
-            - mountPath: /var/run
-              name: run
           readinessProbe:
             exec:
               command:
@@ -84,10 +65,3 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
             failureThreshold: 3
-          securityContext:
-            allowPrivilegeEscalation: true
-            readOnlyRootFilesystem: true  # NOW SECURE! Root filesystem is read-only
-            runAsNonRoot: true
-            capabilities:
-              drop:
-              - ALL
