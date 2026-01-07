@@ -85,7 +85,7 @@ spec:
             periodSeconds: 5
             failureThreshold: 3
           securityContext:
-            allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: true
             readOnlyRootFilesystem: true  # NOW SECURE! Root filesystem is read-only
             runAsNonRoot: true
             capabilities:
