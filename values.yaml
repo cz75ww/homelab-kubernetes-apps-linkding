@@ -31,6 +31,5 @@ namespace:
 
 # values.yaml
 securityContext:
-  runAsUser: 82
-  runAsGroup: 82
-  fsGroup: 82
+  runAsUser: 33
+  runAsGroup: 33
